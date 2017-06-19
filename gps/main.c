@@ -9,20 +9,12 @@
 int main()
 {
     FILE *fp;
-    FILE *fr;
-    char a[100]={0};
-    int i=0;
+    char a[65];
     fp=fopen("//Users//a20161104593//Desktop//gps//1.txt","r");
-    fr=fopen("//Users//a20161104593//Desktop//gps//2.txt","w");
-    for(i=0;i<1;i++)
+    while(fgets(a,9,fp)!=NULL)
     {
-        fscanf(fp,"%s\n",&a[i]);
+        printf("%s",a);
     }
-    for(i=0;i<1;i++)
-    {
-        fprintf(fr,"%s\n",&a[i]);
-        printf("%s",&a[i]);
-    }
-    fclose(fr);
+    fclose(fp);
     return 0;
 }
