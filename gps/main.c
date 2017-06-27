@@ -11,19 +11,24 @@ int main(int argc,const char *argv[])
 {
     int i;
     FILE *fp;
+    FILE *fr;
     char str1[65];
     char str2[65];
-    char lat[9];  //  纬度
-    char time[7]; //  UTC时间
-    char lon[10];  //  经度
-    char speed[6];//  速度
-    char lat2[9];  //  纬度
-    char time2[7]; //  UTC时间
+    char lat[9];    //  纬度
+    char time[7];   //  UTC时间
+    char lon[10];   //  经度
+    char speed[6];  //  速度
+    char day[7];    //  UTC日期
+    char lat2[9];   //  纬度
+    char time2[7];  //  UTC时间
     char lon2[10];  //  经度
-    char speed2[5]; //  速度
+    char number[5]; //  卫星数量
+    char high[5];  //  海拔高度
+    fr=fopen("//Users//a20161104593//Desktop//gps//1.txt","w+");
     fp=fopen("//Users//a20161104593//Desktop//gps//GPS170510.log","r+");
     while(fscanf(fp,"%s%s",str1,str2)!=EOF)
     {
+        
         printf("%s\n%s\n",str1,str2);
         printf("GPRMS\n");
         for(i=0;i<8;i++)
@@ -31,25 +36,31 @@ int main(int argc,const char *argv[])
             lat[i]=str1[i+16];
         }
         lat[8]='\0';
-        printf("纬度 :%s\n",lat);
+        printf("纬度:%s度\n",lat);
         for(i=0;i<6;i++)
         {
             time[i]=str1[i+7];
         }
         time[6]='\0';
-        printf("UTC时间:%s\n",time);
+        printf("UTC时间:%c%c时%c%c分%c%c秒\n",time[0],time[1],time[2],time[3],time[4],time[5]);
         for(i=0;i<9;i++)
         {
             lon[i]=str1[i+27];
         }
         lon[9]='\0';
-        printf("经度:%s\n",lon);
+        printf("经度:%s度\n",lon);
         for(i=0;i<5;i++)
         {
             speed[i]=str1[i+39];
         }
         speed[5]='\0';
-        printf("速度:%s\n",speed);
+        printf("速度:%s节\n",speed);
+        for(i=0;i<7;i++)
+        {
+            day[i]=str1[i+51];
+        }
+        day[6]='\0';
+        printf("UTC日期:%c%c日%c%c月%c%c年\n",day[0],day[1],day[2],day[3],day[4],day[5]);
         
         printf("GPGAA\n");
         for(i=0;i<8;i++)
@@ -57,25 +68,32 @@ int main(int argc,const char *argv[])
             lat2[i]=str2[i+14];
         }
         lat2[8]='\0';
-        printf("纬度 :%s\n",lat2);
+        printf("纬度 :%s度\n",lat2);
         for(i=0;i<6;i++)
         {
             time2[i]=str2[i+7];
         }
         time2[6]='\0';
-        printf("UTC时间:%s\n",time2);
+        printf("UTC时间:%c%c时%c%c分%c%c秒\n",time2[0],time2[1],time2[2],time2[3],time2[4],time2[5]);
         for(i=0;i<9;i++)
         {
             lon2[i]=str2[i+25];
         }
         lon2[9]='\0';
-        printf("经度:%s\n",lon2);
-        for(i=0;i<1;i++)
+        printf("经度:%s度\n",lon2);
+        for(i=0;i<2;i++)
         {
-            speed2[i]=str2[i+37];
+            number[i]=str2[i+39];
         }
-        speed2[1]='\0';
-        printf("速度:%s\n",speed2);
+        number[2]='\0';
+        printf("卫星数量:%s个\n",number);
+        for(i=0;i<5;i++)
+        {
+            high[i]=str2[i+43];
+        }
+        high[4]='\0';
+        printf("海拔高度:%s米\n",high);
+        fprintf(fr,"%s\n %s\n %s\n %s\n %s\n %s\n %s\n",lat,time,lon,speed,day,number,high);
     }
     
     
